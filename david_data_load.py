@@ -11,8 +11,6 @@ import shutil
 import os
 
 
-
-
 # Function that pulls metadata for datasets
 def get_find_datasets(url, key_word):
     payments_datasets = [['dataset', 'dataset_id','download_url']]
@@ -26,8 +24,7 @@ def get_find_datasets(url, key_word):
     return payments_datasets
 
 
-
-
+# Function to download files
 def download_files(url, filename):
     # NOTE the stream=True parameter below
     with requests.get(url, stream=True) as r:
@@ -39,18 +36,12 @@ def download_files(url, filename):
     return filename
 
 
-
-
 # URL for dataset metadata. Need to pull the metadata first to get the download url for each dataset
 url = 'https://openpaymentsdata.cms.gov/api/1/metastore/schemas/dataset/items?show-reference-ids'
 keyword = 'Payment Data'
 
 dataset_info = get_find_datasets(url, keyword)
 
-
-
-
-# CH
 
 file_save_location = 'data/'
 
@@ -64,15 +55,6 @@ for i in dataset_info[1:]:
     #download_files(download_url, filename)
     print(f'Download DONE.\n')
 
-
-
-
-get_ipython().system('jupyter nbconvert --to python david_data_load.ipynb')
-import re 
-with open('david_data_load.py', 'r') as f_orig:
-    script = re.sub(r'# In\[.*\]:\n','', f_orig.read())
-with open('david_data_load.py','w') as fh:
-    fh.write(script)
 
 
 
